@@ -1,6 +1,9 @@
 # Created by https://www.gitignore.io/api/node,macos,webstorm
-# Modified by Jennifer Piper: '.idea/##' added under 'User-specific stuff'
+# Modified by Jennifer Piper: 'db/' added and '.idea/##' added under 'User-specific stuff'
 # Includes Code Fellows codefellows/seattle-javascript-401d23 class repo .gitignore
+
+
+db/
 
 ### macOS ###
 *.DS_Store
