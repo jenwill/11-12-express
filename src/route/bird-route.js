@@ -9,6 +9,11 @@ const jsonParser = bodyParser.json();
 
 const birdRouter = new Router();
 
+birdRouter.get('/api/v1/', (request, response) => {
+  logger.log(logger.INFO, 'GET - processing a request for /api/v1/');
+  return response.sendText(res, 200, 'Seems legit.');
+})
+
 birdRouter.post('/api/v1/bird', jsonParser, (request, response) => {
   logger.log(logger.INFO, 'POST - processing a request');
   if (!request.body.name) {

@@ -4,6 +4,7 @@ import faker from 'faker';
 import superagent from 'superagent';
 import Bird from '../model/bird';
 import {startServer, stopServer } from '../lib/server';
+import './lib/test.env';
 
 const apiURL = `http://localhost:${process.env.PORT}/api/v1/bird`;
 
@@ -12,7 +13,6 @@ const createBirdMock = () => {
     name: faker.lorem.words(10),
     type: faker.lorem.words(10),
     info: faker.lorem.words(25),
-    id: uuid(),
   }).save();
 };
 

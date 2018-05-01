@@ -1,7 +1,6 @@
 'use strict';
 
-import uuid from 'uuid/v4';
-import logger from '../lib/logger';
+//import logger from '../lib/logger';
 import mongoose from 'mongoose';
 
 // module.exports = class {
