@@ -1,18 +1,12 @@
 'use strict';
 
-import logger from '../lib/logger';
-import Bird from '../model/bird';
 import bodyParser from 'body-parser';
 import { Router } from 'express';
+import logger from '../lib/logger';
+import Bird from '../model/bird';
 
 const jsonParser = bodyParser.json();
-
 const birdRouter = new Router();
-
-birdRouter.get('/api/v1/', (request, response) => {
-  logger.log(logger.INFO, 'GET - processing a request for /api/v1/');
-  return response.sendText(res, 200, 'Seems legit.');
-})
 
 birdRouter.post('/api/v1/bird', jsonParser, (request, response) => {
   logger.log(logger.INFO, 'POST - processing a request');
@@ -52,11 +46,11 @@ birdRouter.get('/api/v1/bird/:id', (request, response) => {
       }
       logger.log(logger.ERROR, '__GET_ERRoR__ Returning a 500 status code');
       logger.log(logger.ERroR, error);
-      return resonse.sendStatus(500);
+      return response.sendStatus(500);
     });
 });
 
-export default birdRouter
+export default birdRouter;
 
 /*
 module.exports = function routeBird(router) {
