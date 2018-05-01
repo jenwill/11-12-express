@@ -1,14 +1,39 @@
 'use strict';
 
-const http = require('http');
 
-const Router = require('./router');
+import express from 'express';
+import mongoose from 'mongoose';
+import logger from './logger';
+import birdRoutes from '../route/bird-route';
 
-const router = new Router();
-require('../route/bird-route')(router);
+const app = express();
 
-const app = http.createServer(router.route());
+let server = null;
 
-const server = module.exports = {};
-server.start = (port, callback) => app.listen(port, callback);
-server.stop = callback => app.close(callback);
+app.use(birdRoutes);
+
+app.all('*', (request, response) => {
+  logger.log(logger.INFO, 'Returning a 404 from the catch-all/default route.');
+  return response.sendStatus(404);
+});
+
+const startServer = () => {
+  return mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+      server = app.listen(process.env.PORT, () => {
+        logger.log(logger.INFO, `Server is listening on port ${process.env.PORT}`);
+      });
+    });
+};
+
+const stopServer = () => {
+  return mongoose.disconnect()
+    .then(() => {
+    server.close(() => {
+      logger.log(logger.INFO, 'Server is off');
+    });
+  });
+};
+
+
+export { startServer, stopServer };
