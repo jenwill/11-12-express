@@ -24,8 +24,7 @@ birdRouter.post('/api/v1/bird', jsonParser, (request, response, next) => {
 });
 
 birdRouter.get('/api/v1/bird/:id', (request, response, next) => {
-  // logger.log(logger.INFO, 'GET - processing a request');
-
+  logger.log(logger.INFO, 'GET - processing a request');
   return Bird.findById(request.params.id)
     .then((bird) => {
       if (!bird) {
@@ -38,10 +37,23 @@ birdRouter.get('/api/v1/bird/:id', (request, response, next) => {
     .catch(next);
 });
 
+birdRouter.delete('/api/v1/bird/:id', (request, response, next) => {
+  if (!request.params.id) {
+    return next(new HttpErrors(400, 'id is required'));
+  }
+  const options = { runValidators: true };
+
+  return Bird.findByIdAndRemove(request.params.id, options)
+    .then(() => {
+      // return response.sendText(response, 204);
+      return response();
+    })
+    .catch(next);
+});
+
 export default birdRouter;
 
 /*
-module.exports = function routeBird(router) {
   router.post('/api/v1/bird', (req, res) => {
     try {
       const newBird = new Bird(req.body.name, req.body.type, req.body.info);
@@ -105,6 +117,6 @@ module.exports = function routeBird(router) {
       });
     return undefined;
   });
-};
+
 
 */

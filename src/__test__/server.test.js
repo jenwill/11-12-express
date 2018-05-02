@@ -73,16 +73,22 @@ describe('VALID request to the API', () => {
           });
       });
     });
+    describe('DELETE /api/v1/bird', () => {
+      test('should respond with 400 status if id is missing', () => {
+        return superagent.delete(`${apiURL}/`)
+          .then((response) => {
+            expect(response.status).toEqual(400);
+          });
+      });
+    });
+    test('should respond with 204 status', () => {
+      return createBirdMock()
+        .then((bird) => {
+          return superagent.delete(`${apiURL}/${bird._id}`)
+            .then((response) => {
+              expect(response.status).toEqual(204);
+            });
+        });
+    });
   });
 });
-// describe('INVALID request to the API', () => {
-//   describe('/api/v1/bird/nrkreisldkfe', () => {
-//     it('should respond with status 404', () => {
-//       return superagent.get(`:${process.env.PORT}/api/v1/bird/nrkreisldkfe`)
-//         .catch((res) => {
-//           expect(res.status).toEqual(404);
-//         });
-//     });
-//   });
-// });
-
