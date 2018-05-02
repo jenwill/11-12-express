@@ -74,10 +74,11 @@ describe('VALID request to the API', () => {
       });
     });
     describe('DELETE /api/v1/bird', () => {
-      test('should respond with 400 status if id is missing', () => {
+      test('should respond with 404 status if id is missing', () => {
         return superagent.delete(`${apiURL}/`)
-          .then((response) => {
-            expect(response.status).toEqual(400);
+          .then(Promise.reject)
+          .catch((err) => {
+            expect(err.status).toEqual(404);
           });
       });
       test('should respond with 204 status', () => {

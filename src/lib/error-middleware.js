@@ -16,11 +16,11 @@ export default (error, request, response, next) => { // eslint-disable-line no-u
     return response.sendStatus(404);
   }
   if (errorMessage.includes('validation failed')) {
-    logger.log(logger.INFO, 'Responding with a 400 code');
+    logger.log(logger.INFO, 'ERROR MIDDLEWARE: Responding with a 400 code');
     return response.sendStatus(400);
   }
   if (errorMessage.includes('duplicate key')) {
-    logger.log(logger.INFO, 'Responding with a 409 code');
+    logger.log(logger.INFO, 'ERROR MIDDLEWARE: Responding with a 409 code');
     return response.sendStatus(409);
   }
   if (errorMessage.includes('unauthorized')) {

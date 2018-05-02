@@ -38,16 +38,14 @@ birdRouter.get('/api/v1/bird/:id', (request, response, next) => {
 });
 
 birdRouter.delete('/api/v1/bird/:id', (request, response, next) => {
-  if (!request.params.id) {
-    return next(new HttpErrors(400, 'id is required'));
-  }
-  const options = { runValidators: true };
+  const options = { runValidators: true, new: true };
 
   return Bird.findByIdAndRemove(request.params.id, options)
-
-    .then(() => {
-      // return response.sendText(response, 204);
-      return response();
+    .then((bird) => {
+      if (!bird) {
+        return next(new HttpErrors(404, 'bird not found'));
+      }
+      return response.status(204);
     })
     .catch(next);
 });
