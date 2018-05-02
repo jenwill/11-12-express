@@ -30,4 +30,8 @@ To turn off the database server:
  * To retrieve a resource by id, for example if id is '1234-5678':
 
     GET /api/v1/bird/1234-5678
+    
+ * To delete a resource by id, for example if id is '1234-5678':
+  
+    DELETE /api/v1/bird/1234-5678
  
