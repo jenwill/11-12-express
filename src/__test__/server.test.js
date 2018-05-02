@@ -80,15 +80,15 @@ describe('VALID request to the API', () => {
             expect(response.status).toEqual(400);
           });
       });
-    });
-    test('should respond with 204 status', () => {
-      return createBirdMock()
-        .then((bird) => {
-          return superagent.delete(`${apiURL}/${bird._id}`)
-            .then((response) => {
-              expect(response.status).toEqual(204);
-            });
-        });
+      test('should respond with 204 status', () => {
+        return createBirdMock()
+          .then((bird) => {
+            return superagent.delete(`${apiURL}/${bird._id}`)
+              .then((response) => {
+                expect(response.status).toEqual(204);
+              });
+          });
+      });
     });
   });
 });
