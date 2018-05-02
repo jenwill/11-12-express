@@ -74,8 +74,8 @@ describe('VALID request to the API', () => {
       });
     });
     describe('DELETE /api/v1/bird', () => {
-      test('should respond with 404 status if id is missing', () => {
-        return superagent.delete(`${apiURL}/`)
+      test('should respond with 404 status if id is invalid', () => {
+        return superagent.delete(`${apiURL}/ThisIsABadID`)
           .then(Promise.reject)
           .catch((err) => {
             expect(err.status).toEqual(404);
@@ -84,10 +84,10 @@ describe('VALID request to the API', () => {
       test('should respond with 204 status', () => {
         return createBirdMock()
           .then((bird) => {
-            return superagent.delete(`${apiURL}/${bird._id}`)
-              .then((response) => {
-                expect(response.status).toEqual(204);
-              });
+            return superagent.delete(`${apiURL}/${bird._id}`);
+          })
+          .then((response) => {
+            expect(response.status).toEqual(204);
           });
       });
     });
