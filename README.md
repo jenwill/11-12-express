@@ -1,4 +1,4 @@
-Lab 11: Single Resource Express API
+Lab 12: Single Resource Express API
 ======
 
 **Author:** Jennifer Piper
@@ -37,19 +37,18 @@ on failure due to a resouce with that id not existing respond with a 404 status 
  
  
  * To retrieve an array of all stored resource ids: 
- ```
- http GET :3000/api/v1/bird/ids
- ```
+
+ GET /api/v1/bird/ids
+
  
  
 * To retrieve a resource by id, for example if id is '1234-5678':
-```
-http GET :3000/api/v1/bird?id=1234-5678
-```
+
+ GET /api/v1/bird?id=1234-5678
+
 
 
 * To delete a resource by id, for example if id is '1234-5678':
-```
-http DELETE :3000/api/v1/bird?id=1234-5678
-```
-This will return with status code 204 and no message, as specified in the lab instructions. 
+DELETE /api/v1/bird?id=1234-5678
+
+This will return with status code 204 and no message. 
