@@ -22,7 +22,7 @@ describe('VALID request to the API', () => {
     beforeAll(startServer);
     afterAll(stopServer);
     afterEach(() => Bird.remove({}));
-    test('POST - It should respond with a 200 status', () => {
+    test('POST - 200 for successful resource creation', () => {
       const birdToPost = {
         name: faker.lorem.words(10),
         type: faker.lorem.words(10),
@@ -38,7 +38,7 @@ describe('VALID request to the API', () => {
           expect(response.body._id).toBeTruthy();
         });
     });
-    test('POST - It should respond with a 400 status', () => {
+    test('POST - 400 for bad request', () => {
       const birdToPost = {
         info: faker.lorem.words(50),
       };
@@ -50,7 +50,7 @@ describe('VALID request to the API', () => {
         });
     });
     describe('GET /api/v1/bird', () => {
-      test('should respond with 200 if there are no errors', () => {
+      test('GET - 200 for successful retrieval by resource id', () => {
         let birdToTest = null;
         return createBirdMock()
           .then((bird) => {
@@ -65,7 +65,16 @@ describe('VALID request to the API', () => {
             expect(response.body.habitat).toEqual(birdToTest.habitat);
           });
       });
-      test('should respond with 404 if there is no bird found', () => {
+      test('GET - 200 for successful retrieval of all resources', () => {
+        return createBirdMock()
+          .then(() => {
+            return superagent.get(apiURL);
+          })
+          .then((response) => {
+            expect(response.status).toEqual(200);
+          });
+      });
+      test('GET - 404 for resource not found', () => {
         return superagent.get(`${apiURL}/ABunchOfNonsense`)
           .then(Promise.reject)
           .catch((response) => {
@@ -75,14 +84,4 @@ describe('VALID request to the API', () => {
     });
   });
 });
-// describe('INVALID request to the API', () => {
-//   describe('/api/v1/bird/nrkreisldkfe', () => {
-//     it('should respond with status 404', () => {
-//       return superagent.get(`:${process.env.PORT}/api/v1/bird/nrkreisldkfe`)
-//         .catch((res) => {
-//           expect(res.status).toEqual(404);
-//         });
-//     });
-//   });
-// });
 
