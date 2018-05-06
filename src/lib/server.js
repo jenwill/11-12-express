@@ -29,10 +29,10 @@ const startServer = () => {
 const stopServer = () => {
   return mongoose.disconnect()
     .then(() => {
-    server.close(() => {
-      logger.log(logger.INFO, 'Server is off');
+      server.close(() => {
+        logger.log(logger.INFO, 'Server is off');
+      });
     });
-  });
 };
 
 

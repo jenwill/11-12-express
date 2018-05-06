@@ -1,7 +1,6 @@
 'use strict';
 
-import uuid from 'uuid/v4';
-import logger from '../lib/logger';
+// import logger from '../lib/logger';
 import mongoose from 'mongoose';
 
 // module.exports = class {
@@ -24,6 +23,9 @@ const birdSchema = mongoose.Schema({
   type: {
     type: String,
   },
+  habitat: {
+    type: String,
+  },
   info: {
     type: String,
     required: true,
@@ -31,5 +33,3 @@ const birdSchema = mongoose.Schema({
 });
 
 export default mongoose.model('bird', birdSchema);
-
-
