@@ -82,6 +82,24 @@ describe('VALID request to the API', () => {
           });
       });
     });
+    describe('DELETE /api/v1/bird', () => {
+      test('DELETE - 404 for id not found', () => {
+        return superagent.delete(`${apiURL}/ThisIsABadID`)
+          .then(Promise.reject)
+          .catch((error) => {
+            expect(error.status).toEqual(404);
+          });
+      });
+      test('DELETE - 204 for successful deletion', () => {
+        return createBirdMock()
+          .then((bird) => {
+            return superagent.delete(`${apiURL}/${bird._id}`);
+          })
+          .then((response) => {
+            expect(response.status).toEqual(204);
+          });
+      });
+    });
   });
 });
 
